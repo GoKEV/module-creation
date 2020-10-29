@@ -23,11 +23,10 @@ This is a project to help teach the concepts behind Ansible modules -- how they 
 
 ## Become A Certified Red Hat Content Provider:
 
-Please visit these links to learn more about certifying your content and partnering with Red Hat.  It's actually quite simple and great for recognition that your modules have gone the extra step to be recognized and supportable.
+Please visit these links to learn more about certifying your content and partnering with Red Hat.  It's actually quite simple and great for recognition that your modules have gone the extra step to be recognized and supportable:
 
-
-[1]: https://www.ansible.com/partners "Red Hat Ansible Automation Platform Partners"
-[2]: https://access.redhat.com/articles/4916901 "Ansible Certified Content FAQ"
+* [Red Hat Ansible Automation Platform Partners](https://www.ansible.com/partners "Red Hat Ansible Automation Platform Partners")
+* [Ansible Certified Content FAQ](https://access.redhat.com/articles/4916901 "Ansible Certified Content FAQ")
 
 
 
