@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+# we are getting username value from ansible playbook parameter
+source ${1}
+echo -e "{\"username\":\""$username"\"}"
+
+args=("$@")
+for ((i=0; i < $#; i++))
+{
+    echo "argument $((i+1)): ${args[$i]}" >> /tmp/envfile.txt 2>&1
+}
+

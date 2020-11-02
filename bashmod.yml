@@ -1,0 +1,14 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+  tasks:
+    #Call ansible module "userinfo" with parameter "username=testuser"
+    - name: 'Ansible module in shell'
+      userinfo:
+        username: "{{ username }}"
+        status: "{{ status }}"
+      register: userInfoVariable
+
+    - debug:
+        var: userInfoVariable
+
