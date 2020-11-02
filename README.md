@@ -27,7 +27,7 @@ Please visit these links to learn more about certifying your content and partner
 
 * [Red Hat Ansible Automation Platform Partners](https://www.ansible.com/partners "Red Hat Ansible Automation Platform Partners")
 * [Ansible Certified Content FAQ](https://access.redhat.com/articles/4916901 "Ansible Certified Content FAQ")
-
+* [Ansible Docs on Module Creation](https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_general.html "Ansible Docs on Module Creation")
 
 
 Author(s) Information
