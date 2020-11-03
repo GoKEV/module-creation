@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  vars:
+    - object: Pink Floyd
+    - condition: comfortably numb
+
+  tasks:
+  - name: custombash module test
+    custombash:
+      object: "{{ object }}"
+      condition: "{{ condition }}"
+    register: custombash_output
+
+  - debug: 
+      var: custombash_output
+

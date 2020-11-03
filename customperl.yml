@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    - object: KH
+    - condition: remarkable
+  tasks:
+    - name: This is an ansible module written in Perl
+      customperl:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+      register: modoutput
+
+    - debug:
+        var: modoutput
+

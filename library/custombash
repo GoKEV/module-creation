@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# This script accepts two inputs
+# 1. object
+# 2. condition
+# and prints it as a message
+
+changed="false"
+
+source $1
+
+display="The object $object has the status of $condition"
+
+if [ "$condition" == "happy" ]; then
+    printf '{"changed": true, "msg": "%s"}' "$display" 
+    exit 0
+fi
+if [ "$condition" == "sad" ]; then
+    printf '{"failed": true, "msg": "%s"}' "$display"
+    exit 1
+fi
+ 
+printf '{"changed": %s, "msg": "%s"}' "$changed" "$display"
+
+exit 0

@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+@vars = &get_var_array(@ARGV[0]);	## Parse vars from a subroutine
+
+$object = &get_value("object");
+$condition = &get_value("condition");
+$msg = "The object is $object and the condition is $condition";
+
+
+## We mark the status as "changed" if the object includes a vowel
+if ($object =~ /[aeiouyAEUOUY]/){
+	$changed = 1;
+	$msg .= ", but a vowel in the object marks it as CHANGED";
+}
+
+## We mark the status as "failed" if the condition includes a case insensitive J or a Z
+if ($condition =~ /[jzJZ]/){
+	$failed = 1 ;
+	$msg .= ", but the characters j or z in status markit as FAILED";
+}
+
+$failmsg = '"failed": "true", ' if ($failed == 1);
+$changemsg = '"changed": "true", ' if ($changed == 1);
+
+print<<ALLDONE;
+{$changemsg$failmsg"msg": "$msg"}
+ALLDONE
+
+
+
+##### SUBROUTINE TO GATHER VALUE OF AN ITEM
+
+sub get_value{
+	my $in = shift(@_);
+	foreach $line(@vars){
+		($var,$val) = split(/=/,$line);
+		return $val if ($var eq $in);
+	}
+	return "NULL";
+}
+
+##### SUBROUTINE TO PARSE INBOUND VARIABLES
+
+sub get_var_array{
+	my ($line,$var,$val,$outarray);
+	my $infile = shift(@_);
+	my $input = `cat $infile`;
+	my $indata = "  $input  ";
+	$indata =~ s/\s+([a-z0-9A-Z_]+=)/\n$1/g;
+	foreach $line(split(/\n/,$indata)){
+		$line =~ s/^\s+|\s+$//g;		# break up the pairs into lines
+		next if ($line =~ /^_/);		# ignore vars starting with _underscore
+		next if ($line !~ /=|[a-zA-Z]/);	# ignore lines not including = or alpha characters
+		push(@outarray, $line);
+	}
+	return @outarray;
+}
