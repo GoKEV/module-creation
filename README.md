@@ -34,7 +34,7 @@ ok: [localhost] => {
 
 
 
-[ansible@module-creation]# ansible-playbook -i inventory ./customperl.yml  -e "object=dog condition=happy"
+[ansible@module-creation]# ansible-playbook ./customperl.yml  -e "object=dog condition=happy"
 
 PLAY [localhost] *****************************************************************************************************
 
@@ -88,6 +88,7 @@ Please visit these links to learn more about certifying your content and partner
 Author(s) Information
 ------------------
 * Kevin Holmes :: kev@GoKEV.com
+* Phil Avery
 * Add your name here.  
 
 
