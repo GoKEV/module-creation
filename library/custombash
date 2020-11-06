@@ -1,25 +1,37 @@
 #!/bin/bash
-#
-# This script accepts two inputs
-# 1. object
-# 2. condition
-# and prints it as a message
 
-changed="false"
+##  This first argument contains the name of the
+##  file where our variables are sent from Ansible
+firstarg=$1
 
-source $1
+##  We define the modified variables file where we'll
+##  write them after parsing
+modvarfile=$1.mod
 
-display="The object $object has the status of $condition"
+##  We parse the vars into lines of key=value pairs to modvarfile
+invars=`cat $1 | sed 's/\s\+\([a-zA-Z_]\+=\)/\n\1/g' > $modvarfile`
 
+##  We search the modvarfile for the values we seek
+##  with regex to strip of everything before = and all whitespace at the end
+condition=`grep ^condition $modvarfile | sed 's/^.*=\|\s\+$//g'`
+object=`grep ^object $modvarfile | sed 's/^.*=\|\s\+$//g'`
+
+##  We print the JSON that Ansible reads back and exit
+display="Object $object has the status of $condition"
+
+##  condition happy causes a change output
 if [ "$condition" == "happy" ]; then
-    printf '{"changed": true, "msg": "%s"}' "$display" 
+    printf '{"changed": true, "msg": "%s"}' "$display"
     exit 0
 fi
+
+##  condition sad causes a failed output
 if [ "$condition" == "sad" ]; then
     printf '{"failed": true, "msg": "%s"}' "$display"
     exit 1
 fi
- 
-printf '{"changed": %s, "msg": "%s"}' "$changed" "$display"
 
+##  any other condition shows unchanged status from Ansible
+printf '{"changed": %s, "msg": "%s"}' "$changed" "$display"
 exit 0
+
