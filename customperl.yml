@@ -1,8 +1,12 @@
+---
 - hosts: localhost
-  gather_facts: no
+  gather_facts: false
+  connection: local
+
   vars:
-    - object: KH
-    - condition: remarkable
+    - object: Pink Floyd
+    - condition: comfortably numb
+
   tasks:
     - name: This is an ansible module written in Perl
       customperl:

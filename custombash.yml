@@ -1,18 +1,20 @@
 ---
 - hosts: localhost
   gather_facts: false
+  connection: local
 
   vars:
     - object: Pink Floyd
     - condition: comfortably numb
 
   tasks:
-  - name: custombash module test
-    custombash:
-      object: "{{ object }}"
-      condition: "{{ condition }}"
-    register: custombash_output
+    - name: This is an ansible module written in Perl
+      customperl:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+      register: modoutput
+      ignore_errors: true
 
-  - debug: 
-      var: custombash_output
+    - debug:
+        var: modoutput
 
