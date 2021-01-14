@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  vars:
+    - object: Pink Floyd
+    - condition: comfortably numb
+    - yourName: Snarky the red williamson
+
+  tasks:
+    - name: This is an ansible module written in Python
+      custompython:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+      register: modoutput
+      ignore_errors: true
+
+    - debug:
+        var: modoutput
+

@@ -1,0 +1,68 @@
+#!/usr/bin/perl
+$varsfile = @ARGV[0];			## Ansible feeds the vars temp file name in as ARG 0
+$varstemp = "/tmp/ansiblevars.txt";
+$varslines = "/tmp/ansiblelines.txt";
+
+system("cp $varsfile $varstemp");
+
+@vars = &get_var_array($varsfile);	## Ansible feeds the vars temp file name in as ARG 0
+
+push(@resultsitems, "Ansible sends the variables in the file as argument 0, which is");
+push(@resultsitems, "$varsfile");
+push(@resultsitems, "We copied the vars file to $varstemp so we can read it after the process ends");
+push(@resultsitems, "We also formatted it nicely and copied the vars to $varslines");
+
+foreach $var(@vars){
+	$varchunk .= "$var\n";
+}
+
+open(OUTFILE, '>', $varslines) or die "Could not open file '$varslines' $!";
+print OUTFILE $varchunk;
+close OUTFILE;
+
+
+
+########################################################################
+###   WE PARSE THE ARRAY OF ALL ITEMS WE WANT IN THE RESULTS FIELD   ###
+########################################################################
+if (length(@resultsitems > 0)){
+	foreach $resultsitem(@resultsitems){
+		$resultspayload .= "\"$resultsitem\",";
+	}
+	$resultspayload =~ s/,$//g;
+
+$resultsmsg=<<ALLDONE;
+        "results": [ $resultspayload ]
+ALLDONE
+}
+
+
+
+
+########################################################################
+
+
+
+########################################################################
+###   THIS IS WHERE WE PRINT THE FINAL JSON OUTPUT BACK TO ANSIBLE   ###
+########################################################################
+print<<ALLDONE;
+{ "msg": "$msg",$resultsmsg}
+ALLDONE
+########################################################################
+
+##### SUBROUTINE TO PARSE INBOUND VARIABLES
+sub get_var_array{
+	my ($line,$var,$val,$outarray);			# we reserve some exclusive vars so that Perl doesn't freak out
+	my $infile = shift(@_);				# take the variable fed into this subroutine
+	my $input = `cat $infile`;			# pull the contents from the file name provided
+	system("cp -p $infile /tmp/args.txt");		# for testing purposes, we can view this file and see what vars were passed
+	my $indata = "  $input  ";			# pad with some spaces so our regex works nicely
+	$indata =~ s/\s+([a-z0-9A-Z_]+=)/\n$1/g;	# mildly complex regex to convert unstructured data to newline pairs
+	foreach $line(split(/\n/,$indata)){		# split each key value pair 1 per line
+		$line =~ s/^\s+|\s+$//g;		# strip off the extra whitespace on the ends of each pair
+		next if ($line !~ /=|[a-zA-Z]/);	# ignore lines that are not a proper key value pair
+		push(@outarray, $line);
+	}
+	return @outarray;
+}

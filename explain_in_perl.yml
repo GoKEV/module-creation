@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  vars:
+    - object: Pink Floyd
+    - condition: comfortably numb
+
+  tasks:
+    - name: This will show you where the vars file comes into play
+      explain_in_perl:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+      register: modoutput
+      ignore_errors: true
+
+    - debug:
+        var: modoutput
+
