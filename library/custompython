@@ -10,15 +10,17 @@ def main():
 	"condition": {"required": False, "type": "str"}
     }
 
+## Here we pull in the fields that were fed in
     module = AnsibleModule(argument_spec=fields)
     inputobject = module.params["object"]
     inputcondition = module.params["condition"]
-    didwechange = False
 
     moduleReturnValue = [{"object": inputobject},{"condition": inputcondition}]
 
-    if re.match('[aeiouyAEIOUY]', inputobject) is not None:
+    if re.search('[aeiouyAEIOUY]', inputobject):
         didwechange = True
+    else:
+        didwechange = False
 
     module.exit_json(changed=didwechange, meta=moduleReturnValue)
 
