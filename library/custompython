@@ -10,8 +10,15 @@ def main():
     }
 
     module = AnsibleModule(argument_spec=fields)
-    theReturnValue = {"object": "BLAH"}
-    module.exit_json(changed=False, meta=theReturnValue)
+    inputobject = module.params["object"]
+    inputcondition = module.params["condition"]
+
+
+    search_text="
+    if re.match('[aeiouyAEIOUY]', inputobject) is not None:
+        didwechange = True
+
+    module.exit_json(changed=didwechange, meta=moduleReturnValue)
 
 
 if __name__ == '__main__':
