@@ -6,7 +6,7 @@
   vars:
     - object: Pink Floyd
     - condition: comfortably numb
-    - temp_file_bool: False
+    - temp_file_field: present
 
   tasks:
     - name: This is an ansible module written in Python

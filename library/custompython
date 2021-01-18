@@ -6,7 +6,6 @@ short_description: Build a simple but functional module
 '''
 
 EXAMPLES = '''
----
 - hosts: localhost
   gather_facts: False
   connection: local
@@ -14,14 +13,14 @@ EXAMPLES = '''
   vars:
     - object: Pink Floyd
     - condition: comfortably numb
-    - temp_file_bool: False
+    - temp_file_field: present
 
   tasks:
     - name: This is an ansible module written in Python
       custompython:
         object: "{{ object }}"
         condition: "{{ condition }}"
-        tempfile: "{{ temp_file_bool }}"
+        tempfile: "{{ temp_file_field }}"
       register: modoutput
       ignore_errors: true
 
@@ -30,24 +29,17 @@ EXAMPLES = '''
 '''
 
 from ansible.module_utils.basic import *
-import requests
 
 def main():
 
     fields = {
 	"object": {"required": True, "type": "str" },
-	"condition": {"required": False, "type": "str"}
+	"condition": {"required": False, "type": "str"},
         "tempfile": {
             "default": "present",
             "choices": ['present', 'absent'],
             "type": 'str'
         },
-    }
-
-##  This is reserved if we want to actually DO something with the extras boolean
-    choice_map = {
-        "present": tmp_file_present,
-        "absent": tmp_file_absent,
     }
 
     module = AnsibleModule(argument_spec=fields)
