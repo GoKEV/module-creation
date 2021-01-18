@@ -1,5 +1,33 @@
 #!/usr/bin/python
 
+DOCUMENTATION = '''
+module: custompython
+short_description: Build a simple but functional module
+'''
+
+EXAMPLES = '''
+- hosts: localhost
+  gather_facts: False
+  connection: local
+
+  vars:
+    - object: Pink Floyd
+    - condition: comfortably numb
+    - temp_file_field: present
+
+  tasks:
+    - name: This is an ansible module written in Python
+      custompython:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+        tempfile: "{{ temp_file_field }}"
+      register: modoutput
+      ignore_errors: true
+
+    - debug:
+        var: modoutput
+'''
+
 from ansible.module_utils.basic import *
 import re
 
@@ -14,17 +42,25 @@ def main():
     module = AnsibleModule(argument_spec=fields)
     inputobject = module.params["object"]
     inputcondition = module.params["condition"]
-
     moduleReturnValue = [{"object": inputobject},{"condition": inputcondition}]
 
+## Change logic goes here.
     if re.search('[aeiouyAEIOUY]', inputobject):
         didwechange = True
+        moduleReturnValue = moduleReturnValue + [{"changed because": "condition " + inputobject + " contains the letters aeiouy"}]
     else:
         didwechange = False
+        moduleReturnValue = moduleReturnValue + [{"not changed because": "condition " + inputobject + " does not contain the letters aeiouy"}]
 
-    module.exit_json(changed=didwechange, meta=moduleReturnValue)
+## Fail logic goes here.
+    if re.search('[jzJZ]', inputcondition):
+        didwefail = True
+        moduleReturnValue = moduleReturnValue + [{"failed because": "condition " + inputcondition + " contains the letters j or z"}]
+    else:
+        didwefail = False
+        moduleReturnValue = moduleReturnValue + [{"not failed because": "condition " + inputcondition + " does not contain the letters j or z"}]
 
+    module.exit_json(failed=didwefail,changed=didwechange,messages=moduleReturnValue)
 
 if __name__ == '__main__':
     main()
-
