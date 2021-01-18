@@ -13,7 +13,7 @@
       custompython:
         object: "{{ object }}"
         condition: "{{ condition }}"
-        tempfile: "{{ temp_file_bool }}"
+        tempfile: "{{ temp_file_field }}"
       register: modoutput
       ignore_errors: true
 
