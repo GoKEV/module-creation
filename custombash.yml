@@ -8,8 +8,8 @@
     - condition: comfortably numb
 
   tasks:
-    - name: This is an ansible module written in Perl
-      customperl:
+    - name: This is an ansible module written in Bash
+      custombash:
         object: "{{ object }}"
         condition: "{{ condition }}"
       register: modoutput

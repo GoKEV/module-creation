@@ -33,5 +33,7 @@ fi
 
 ##  any other condition shows unchanged status from Ansible
 printf '{"changed": %s, "msg": "%s"}' "$changed" "$display"
+
+echo
 exit 0
 
