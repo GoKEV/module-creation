@@ -1,16 +1,16 @@
-#!/bin/env python
+#!/usr/bin/python
+
 from ansible.module_utils.basic import *
-import os, json
-import re, sys
-def firstProg(text):
-  text1 = "Hello " + text
-  return text1
-if __name__ == '__main__':
-  fields = {
-  "yourName": {"required": True, "type": "str"}
-  }
-  module = AnsibleModule(argument_spec=fields)
-  yourName = os.path.expanduser(module.params['yourName'])
-  newName = firstProg(yourName)
-  module.exit_json(msg=newName)
+
+def main():
+
+fields = {
+	"object": {"required": True, "type": "str" },
+	"condition": {"required": False, "type": "str"}
+}
+
+module = AnsibleModule(argument_spec=fields)
+module.exit_json(changed=False, meta=module.params)
+
+
 
