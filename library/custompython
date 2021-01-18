@@ -1,55 +1,17 @@
 #!/usr/bin/python
 
-DOCUMENTATION = '''
-module: custompython
-short_description: Build a simple but functional module
-'''
-
-EXAMPLES = '''
-- hosts: localhost
-  gather_facts: False
-  connection: local
-
-  vars:
-    - object: Pink Floyd
-    - condition: comfortably numb
-    - temp_file_field: present
-
-  tasks:
-    - name: This is an ansible module written in Python
-      custompython:
-        object: "{{ object }}"
-        condition: "{{ condition }}"
-        tempfile: "{{ temp_file_field }}"
-      register: modoutput
-      ignore_errors: true
-
-    - debug:
-        var: modoutput
-'''
-
 from ansible.module_utils.basic import *
 
 def main():
 
     fields = {
 	"object": {"required": True, "type": "str" },
-	"condition": {"required": False, "type": "str"},
-        "tempfile": {
-            "default": "present",
-            "choices": ['present', 'absent'],
-            "type": 'str'
-        },
+	"condition": {"required": False, "type": "str"}
     }
 
     module = AnsibleModule(argument_spec=fields)
-    is_error, has_changed, result = choice_map.get(
-        module.params['state'])(module.params)
-
-    if not is_error:
-        module.exit_json(changed=has_changed, meta=result)
-    else:
-        module.fail_json(msg="Error making absent", meta=result)
+    theReturnValue = {"object": "BLAH"}
+    module.exit_json(changed=False, meta=theReturnValue)
 
 
 if __name__ == '__main__':

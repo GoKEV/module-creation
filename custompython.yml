@@ -6,14 +6,12 @@
   vars:
     - object: Pink Floyd
     - condition: comfortably numb
-    - temp_file_field: present
 
   tasks:
     - name: This is an ansible module written in Python
       custompython:
         object: "{{ object }}"
         condition: "{{ condition }}"
-        tempfile: "{{ temp_file_field }}"
       register: modoutput
       ignore_errors: true
 
