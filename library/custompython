@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from ansible.module_utils.basic import *
+import re
 
 def main():
 
@@ -12,9 +13,10 @@ def main():
     module = AnsibleModule(argument_spec=fields)
     inputobject = module.params["object"]
     inputcondition = module.params["condition"]
+    didwechange = False
 
+    moduleReturnValue = [{"object": inputobject},{"condition": inputcondition}]
 
-    search_text="
     if re.match('[aeiouyAEIOUY]', inputobject) is not None:
         didwechange = True
 
