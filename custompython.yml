@@ -6,13 +6,14 @@
   vars:
     - object: Pink Floyd
     - condition: comfortably numb
-    - yourName: Snarky the red williamson
+    - temp_file_bool: False
 
   tasks:
     - name: This is an ansible module written in Python
       custompython:
         object: "{{ object }}"
         condition: "{{ condition }}"
+        tempfile: "{{ temp_file_bool }}"
       register: modoutput
       ignore_errors: true
 
