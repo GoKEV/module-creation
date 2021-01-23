@@ -25,7 +25,7 @@ fi
 ##  object aeiouyAEIOUY causes a change output
 CHANGE_MATCH="aeiouyAEIOUY"
 if [[ $OBJECT =~ [$CHANGE_MATCH] ]]; then
-    display="The object contains $CHANGE_MATCH and therefore will report a change"
+    display="The object $OBJECT contains $CHANGE_MATCH and therefore will report a change"
     printf "{\"changed\": true, \"msg\": \"$display\"}"
     exit 0
 fi
