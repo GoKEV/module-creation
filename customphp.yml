@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+  vars:
+    - object: Pink Floyd
+    - condition: comfortably numb
+
+  tasks:
+    - name: This is an ansible module written in PHP
+      customphp:
+        object: "{{ object }}"
+        condition: "{{ condition }}"
+      register: modoutput
+      ignore_errors: true
+
+    - debug:
+        var: modoutput
+
