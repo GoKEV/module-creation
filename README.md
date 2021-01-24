@@ -41,7 +41,8 @@ Current existing examples of custom modules, written in:
 
     - debug:
         var: modoutput
-</pre>
+
+
 
 
 TASK [debug] **************************************************************************************************************************
@@ -109,10 +110,11 @@ Author(s) Information
 ------------------
 * Kevin Holmes :: kev@GoKEV.com
 * Phil Avery
+* Jim Barlow
 * Add your name here.  
 
 
-This project was created in 2020 by [Kevin Holmes](http://GoKEV.com/), based on the need to offer simple spoon-fed instructions for building a module.  This is, in no way, an advanced module course, no a Python lesson.  This is meant to be a very simple introduction to the conduit and to help stimulate your brain into different ways you can use it.
+This project was created in 2020 by [Kevin Holmes](http://GoKEV.com/), based on the need to offer simple spoon-fed instructions for building a module.  This is, in no way, an advanced module course, not a Python lesson.  This is meant to be a very simple introduction to the conduit and to help stimulate your brain into different ways you can use it.
 
 - 2020-01-23  Added working PHP module example
 - 2020-01-14  Added working Python module example
