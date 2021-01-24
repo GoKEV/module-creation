@@ -8,8 +8,10 @@ This repo is full of some turn-key custom module examples, written in simple lan
 They don't require a python guru to understand the function, and they're part of a greater
 effort to demystify the interaction between Ansible and the module itself.
 
-These are absolutely not a complete functional project.  They are meant to assist in learning
+These are absolutely not a complete project.  They are meant to assist in learning
 the process to build your own custom module and make it work inside a custom Ansible collection.
+
+These modules show examples of variable and status inputs so that you can process and "do stuff" with the framework.
 
 Current existing examples of custom modules, written in:
 * Python (relatively classless, simple)
