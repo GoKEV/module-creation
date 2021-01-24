@@ -3,6 +3,9 @@
 <?php
 
 $input_vars = parse_args($argv[1]);
+
+$output['input_object'] = $input_vars['object'];
+$output['input_condition'] = $input_vars['condition'];
 $output["changed"] = changed_conditional($input_vars["object"]);
 $output["failed"] = failed_conditional($input_vars["condition"]);
 

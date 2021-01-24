@@ -1,57 +1,77 @@
 [![GoKEV](http://GoKEV.com/GoKEV200.png)](http://GoKEV.com/)
 
 <div style="position: absolute; top: 40px; left: 200px;">
+# Why????  WHY!?!??
 
-# Existing (Working) Examples of custom modules:
-<pre>ansible-playbook ./customperl.yml</pre>
-This module, written in Perl is built to mark CHANGE on an "object" value that includes a vowel and FAIL on a "condition" value that includes a J or a Z.
+This repo is full of some turn-key custom module examples, written in simple languages.  
+They don't require a python guru to understand the function, and they're part of a greater
+effort to demystify the interaction between Ansible and the module itself.
 
-<pre>
+These are absolutely not a complete functional project.  They are meant to assist in learning
+the process to build your own custom module and make it work inside a custom Ansible collection.
+
+Current existing examples of custom modules, written in:
+* Python (relatively classless, simple)
+* Perl (God's perfect language)
+* PHP (because who doesn't want an Ansible module written in PHP?)
+* Bash (never underestimate the need for converting a shell script into a module)
+
+# Existing (Working) Examples of custom modules all share the same basic playbook:
+
+
+<pre>ansible-playbook ./custom($language).yml
+
+
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
   vars:
-    - object: KH
-    - condition: remarkable
+    - object: Pink Floyd
+    - condition: comfortably numb
+
   tasks:
-    - name: This is an ansible module written in Perl
-      customperl:
+    - name: This is an ansible module written in $language
+      modulename:
         object: "{{ object }}"
         condition: "{{ condition }}"
       register: modoutput
+      ignore_errors: true
 
     - debug:
         var: modoutput
+</pre>
 
 
-
-
-TASK [debug] *********************************************************************************************************
+TASK [debug] **************************************************************************************************************************
 ok: [localhost] => {
     "modoutput": {
-        "changed": false, 
-        "failed": false, 
-        "msg": "The object is KH and the condition is remarkable"
+        "changed": true,
+        "failed": false,
+        "message": {
+            "'Pink Floyd'": "Object includes a vowel aeiouyAEIOUY and therefore we will mark this as changed"
+        }
     }
 }
+</pre>
+# OR
+<pre>
+TASK [This is an ansible module written in $language] ***************************************************************************************
+fatal: [localhost]: FAILED! => {"changed": true, "message": "Comfortably Numbz": "Condition includes a jJzZ and therefore we will mark this as failed"}}
+...ignoring
 
-
-
-[ansible@module-creation]# ansible-playbook ./customperl.yml  -e "object=dog condition=happy"
-
-PLAY [localhost] *****************************************************************************************************
-
-TASK [This is an ansible module written in Perl] *********************************************************************
-changed: [localhost]
-
-TASK [debug] *********************************************************************************************************
+TASK [debug] **************************************************************************************************************************
 ok: [localhost] => {
     "modoutput": {
-        "changed": "true", 
-        "failed": false, 
-        "msg": "The object is dog and the condition is happy, but a vowel in the object marks it as CHANGED"
+        "changed": true,
+        "failed": true,
+        "message": {
+            "'Pink Floyd'": "Object includes a vowel aeiouyAEIOUY and therefore we will mark this as changed",
+            "Comfortably Numbz": "Condition includes a jJzZ and therefore we will mark this as failed"
+        }
     }
 }
-
-PLAY RECAP ***********************************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 </pre>
 
@@ -94,5 +114,7 @@ Author(s) Information
 
 This project was created in 2020 by [Kevin Holmes](http://GoKEV.com/), based on the need to offer simple spoon-fed instructions for building a module.  This is, in no way, an advanced module course, no a Python lesson.  This is meant to be a very simple introduction to the conduit and to help stimulate your brain into different ways you can use it.
 
+- 2020-01-23  Added working PHP module example
+- 2020-01-14  Added working Python module example
 - 2020-11-02  Working examples of Perl and Bash language modules have been added.
 - Initial Update 2020-10-29 :: Documentation and overview created in hopes to evangelize the effort and the message to those who can help and contribute
