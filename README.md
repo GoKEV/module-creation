@@ -1,5 +1,3 @@
-This README links to the original repo at https://github.com/GoKEV/module-creation
-
 [![GoKEV](http://GoKEV.com/GoKEV200.png)](http://GoKEV.com/)
 <div style="position: absolute; top: 40px; left: 200px;">
 
