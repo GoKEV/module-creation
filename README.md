@@ -122,6 +122,7 @@ Author(s) Information
 - *Perl-based Ansible module* works with Perl that is installed by default in RHEL 8; last tested with *Perl v5.26.3*
 - *Bash-based Ansible module* works with standard Bash install on RHEL 7 and RHEL 8.  This Bash-based module should be generally compatible with KornShell or other environments, when given the proper interpreter and syntax. 
 
+## Project origin and milestones:
 
 This project was created in 2020 by [Kevin Holmes](http://GoKEV.com/), based on the need to offer simple spoon-fed instructions for building a module.  This is, in no way, an advanced module course, nor is it a Python lesson.  This is meant to be a very simple introduction to the conduit and to help stimulate your brain into different ways you can use it.
 
