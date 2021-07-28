@@ -126,7 +126,7 @@ Author(s) Information
 
 This project was created in 2020 by [Kevin Holmes](http://GoKEV.com/), based on the need to offer simple spoon-fed instructions for building a module.  This is, in no way, an advanced module course, nor is it a Python lesson.  This is meant to be a very simple introduction to the conduit and to help stimulate your brain into different ways you can use it.
 
-- 2020-01-23  Added working PHP module example
-- 2020-01-14  Added working Python module example
+- 2021-01-23  Added working PHP module example
+- 2021-01-14  Added working Python module example
 - 2020-11-02  Working examples of Perl and Bash language modules have been added.
 - Initial Update 2020-10-29 :: Documentation and overview created in hopes to evangelize the effort and the message to those who can help and contribute
